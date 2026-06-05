@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARVELICIOUS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class",
+    theme:{extend:{
+      colors:{
+        "surface":"#121414","surface-dim":"#121414","surface-bright":"#37393a",
+        "surface-container-lowest":"#0c0f0f","surface-container-low":"#1a1c1c",
+        "surface-container":"#1e2020","surface-container-high":"#282a2b",
+        "surface-container-highest":"#333535","surface-variant":"#333535",
+        "on-surface":"#e2e2e2","on-surface-variant":"#e8bcb7",
+        "background":"#121414","on-background":"#e2e2e2",
+        "primary":"#ffb4ab","on-primary":"#690006",
+        "primary-container":"#ff544b","on-primary-container":"#5c0004",
+        "inverse-primary":"#c00014","outline":"#ae8783","outline-variant":"#5e3f3c"
+      },
+      fontFamily:{"headline":["Bebas Neue"],"body":["Hanken Grotesk"]},
+      fontSize:{
+        "headline-xl":["80px",{lineHeight:"80px",letterSpacing:"0.02em",fontWeight:"400"}],
+        "headline-lg":["48px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"400"}],
+        "headline-lg-mobile":["32px",{lineHeight:"32px",letterSpacing:"0.02em",fontWeight:"400"}],
+        "headline-md":["24px",{lineHeight:"28px",letterSpacing:"0.04em",fontWeight:"400"}],
+        "body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],
+        "body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],
+        "label-md":["14px",{lineHeight:"20px",letterSpacing:"0.1em",fontWeight:"600"}],
+        "label-sm":["12px",{lineHeight:"16px",fontWeight:"700"}]
+      },
+      spacing:{
+        "margin-mobile":"16px","margin-desktop":"64px",
+        "gutter":"24px","section-gap":"80px"
+      }
+    }}
+  }
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Hanken Grotesk',sans-serif;background:#121414;color:#e2e2e2;overflow-x:hidden}
+
+.glass-panel{backdrop-filter:blur(30px);background:rgba(26,26,26,.5);border:1px solid rgba(255,255,255,.1)}
+.glass-card{background:rgba(26,26,26,.6);backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,.1);transition:all .4s cubic-bezier(.4,0,.2,1)}
+.glass-card:hover{border-color:rgba(237,29,36,.5);transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.5),0 0 15px rgba(237,29,36,.12)}
+.inner-glow{box-shadow:inset 1px 1px 0 rgba(255,255,255,.08)}
+.hero-gradient{background:linear-gradient(to bottom,transparent 0%,transparent 50%,#121414 100%)}
+.cinematic-gradient{background:linear-gradient(to top,#0a0a0a 0%,transparent 100%)}
+.marvel-btn{background:#ED1D24;transition:all .3s ease;color:#fff}
+.marvel-btn:hover{box-shadow:0 0 20px rgba(237,29,36,.5);filter:brightness(1.1)}
+.marvel-btn:active{transform:scale(.97)}
+.glow-hover:hover{box-shadow:0 0 15px rgba(237,29,36,.4)}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;font-family:'Material Symbols Outlined'}
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#0c0f0f}
+::-webkit-scrollbar-thumb{background:#333535;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#ED1D24}
+
+/* NAV */
+#mainNav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;height:64px;background:rgba(18,20,20,.92);border-bottom:1px solid rgba(94,63,60,.3);backdrop-filter:blur(16px)}
+.nav-logo{font-family:'Bebas Neue';font-size:22px;letter-spacing:3px;color:#ffb4ab;background:#5c0004;padding:2px 8px;cursor:pointer;flex-shrink:0}
+.nav-links{display:flex;gap:4px}
+.nav-link{background:none;border:none;color:#e8bcb7;font-family:'Hanken Grotesk';font-size:13px;font-weight:600;letter-spacing:.08em;padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.nav-link:hover{color:#ffb4ab;background:rgba(255,180,171,.08)}
+.nav-link.active{color:#ffb4ab;border-bottom:2px solid #ED1D24}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-input{background:rgba(51,53,53,.5);border:1px solid rgba(94,63,60,.3);border-radius:24px;padding:7px 14px 7px 36px;color:#e2e2e2;font-family:'Hanken Grotesk';font-size:13px;width:180px;outline:none;transition:all .3s}
+.search-input:focus{border-color:#ED1D24;width:220px}
+.search-input::placeholder{color:#ae8783}
+.search-ico{position:absolute;left:11px;color:#ae8783;font-size:16px;pointer-events:none;font-family:'Material Symbols Outlined'}
+.nav-right{display:flex;align-items:center;gap:10px}
+.mobile-menu-btn{display:none;background:none;border:none;color:#e2e2e2;font-size:26px;cursor:pointer;font-family:'Material Symbols Outlined'}
+
+/* HERO */
+#heroSection{position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-overlay1{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,transparent 40%,#121414 100%)}
+.hero-overlay3{position:absolute;inset:0;background:linear-gradient(to right,rgba(18,20,20,.85) 0%,rgba(18,20,20,.3) 60%,transparent 100%)}
+.hero-content{position:relative;z-index:10;padding:0 4vw 72px;max-width:760px}
+.hero-phase-badge{display:inline-flex;align-items:center;background:#ED1D24;color:#fff;font-family:'Hanken Grotesk';font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;margin-bottom:14px}
+.hero-title{font-family:'Bebas Neue';font-size:clamp(48px,7vw,88px);line-height:1;letter-spacing:.02em;color:#e2e2e2;margin-bottom:14px}
+.hero-desc{font-size:16px;line-height:1.7;color:#e8bcb7;max-width:520px;margin-bottom:28px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-family:'Bebas Neue';font-size:18px;letter-spacing:.06em}
+.hero-btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-family:'Bebas Neue';font-size:18px;letter-spacing:.06em;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#e2e2e2;transition:all .3s}
+.hero-btn-secondary:hover{background:rgba(255,255,255,.08);border-color:rgba(255,180,171,.4)}
+.hero-scroll-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.5}
+.hero-scroll-hint span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ae8783}
+
+/* FILTERS */
+#filterSection{position:sticky;top:64px;z-index:80;background:rgba(18,20,20,.97);border-bottom:1px solid rgba(94,63,60,.2);padding:12px 4vw;display:flex;flex-wrap:wrap;align-items:center;gap:10px;backdrop-filter:blur(12px)}
+.filter-label{font-size:10px;color:#ae8783;font-weight:700;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
+.chips-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.chip{background:rgba(51,53,53,.5);border:1px solid rgba(94,63,60,.3);border-radius:24px;padding:5px 13px;font-size:12px;font-weight:600;letter-spacing:.05em;color:#e8bcb7;cursor:pointer;transition:all .18s;white-space:nowrap;font-family:'Hanken Grotesk';text-transform:uppercase}
+.chip:hover{border-color:rgba(237,29,36,.5);color:#ffb4ab}
+.chip.active{background:#ED1D24;border-color:#ED1D24;color:#fff}
+.filter-sep{width:1px;height:18px;background:rgba(94,63,60,.4);flex-shrink:0;margin:0 2px}
+.btn-reset{background:none;border:1px solid rgba(94,63,60,.3);border-radius:24px;padding:5px 13px;color:#ae8783;font-family:'Hanken Grotesk';font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+.btn-reset:hover{border-color:#ED1D24;color:#ffb4ab}
+
+/* RESULTS BANNER */
+#resultsBanner{min-height:24px;padding:8px 4vw 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.rb-tag{background:rgba(51,53,53,.5);border:1px solid rgba(94,63,60,.3);border-radius:4px;padding:3px 9px;font-size:12px;color:#e8bcb7;display:inline-flex;align-items:center;gap:5px}
+.rb-tag strong{color:#ffb4ab}
+.rb-x{background:none;border:none;color:#ae8783;cursor:pointer;font-size:13px;line-height:1;padding:0 2px;transition:color .15s}
+.rb-x:hover{color:#ED1D24}
+.rb-count{font-size:12px;color:#ae8783}
+
+/* SECTION HEADER */
+.sec-hdr{padding:20px 4vw 0;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.sec-title{font-family:'Bebas Neue';font-size:32px;letter-spacing:3px;color:#e2e2e2}
+.sec-meta{font-size:12px;color:#ae8783}
+.sec-eyebrow{font-size:11px;color:#ED1D24;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+
+/* GRID */
+.grid-wrap{padding:16px 4vw 60px}
+.movie-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px}
+.card{background:rgba(26,26,26,.6);border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.08);position:relative;transition:all .35s cubic-bezier(.4,0,.2,1)}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.5),0 0 15px rgba(237,29,36,.1);border-color:rgba(237,29,36,.4);z-index:5}
+.card-poster-wrap{width:100%;aspect-ratio:2/3;overflow:hidden;background:#1a1c1c;display:flex;align-items:center;justify-content:center;position:relative}
+.card-poster{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.card:hover .card-poster{transform:scale(1.08)}
+.card-ph{font-size:40px;color:#ae8783;display:none}
+.card-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s}
+.card:hover .card-overlay{opacity:1}
+.play-btn{width:52px;height:52px;border-radius:50%;background:#ED1D24;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;transform:scale(.8);transition:transform .2s;font-family:'Material Symbols Outlined'}
+.card:hover .play-btn{transform:scale(1)}
+.card-phase{position:absolute;top:8px;left:8px;background:#ED1D24;color:#fff;font-family:'Hanken Grotesk';font-size:10px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:4px;z-index:2;text-transform:uppercase}
+.card-type{position:absolute;top:8px;right:8px;background:rgba(12,15,15,.85);border:1px solid rgba(255,255,255,.15);color:#e2e2e2;font-size:10px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:4px;z-index:2;text-transform:uppercase;backdrop-filter:blur(4px)}
+.card-body{padding:10px 12px 13px}
+.card-title{font-size:12px;font-weight:600;color:#e2e2e2;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta-row{display:flex;align-items:center;gap:6px;font-size:11px}
+.card-year{color:#ae8783}
+.card-rating{color:#ffb4ab;font-weight:700}
+.sk{background:linear-gradient(90deg,#1e2020 25%,#282a2b 50%,#1e2020 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:12px;aspect-ratio:2/3}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.empty-state{text-align:center;padding:70px 20px;color:#ae8783;grid-column:1/-1}
+.empty-icon{font-size:56px;margin-bottom:12px}
+.empty-t{font-family:'Bebas Neue';font-size:22px;color:#e8bcb7;letter-spacing:2px;margin-bottom:6px}
+
+/* CHARACTERS SECTION */
+#charsSection{padding:section-gap 0;background:#0c0f0f}
+.chars-track{display:flex;gap:20px;overflow-x:auto;padding:4px 4vw 24px;cursor:grab}
+.chars-track:active{cursor:grabbing}
+.char-card{min-width:240px;border-radius:12px;overflow:hidden;position:relative;aspect-ratio:3/4;flex-shrink:0;cursor:pointer;border:1px solid rgba(255,255,255,.08);transition:all .4s cubic-bezier(.175,.885,.32,1.275)}
+.char-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 20px 40px rgba(0,0,0,.6)}
+.char-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.char-card:hover img{transform:scale(1.08)}
+.char-gradient{position:absolute;inset:0;background:linear-gradient(to top,#0a0a0a 0%,transparent 60%)}
+.char-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px 18px}
+.char-role{font-size:10px;color:#ED1D24;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:5px}
+.char-name{font-family:'Bebas Neue';font-size:22px;letter-spacing:.04em;color:#e2e2e2;margin-bottom:4px}
+.char-alias{font-size:13px;color:#ae8783;opacity:0;transition:opacity .3s}
+.char-card:hover .char-alias{opacity:1}
+.char-tags{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+.char-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(51,53,53,.8);padding:2px 7px;border-radius:3px;color:#c8c6c5}
+
+/* PHASES SECTION */
+#phasesSection{padding:80px 4vw;position:relative;overflow:hidden}
+.phases-line{position:absolute;left:50%;top:120px;bottom:80px;width:1px;background:rgba(94,63,60,.3);display:none}
+.phase-row{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+.phase-hdr{display:flex;align-items:center;gap:12px}
+.phase-dot{width:14px;height:14px;border-radius:50%;background:#ED1D24;border:3px solid #121414;box-shadow:0 0 10px rgba(237,29,36,.4);flex-shrink:0}
+.phase-year{background:rgba(51,53,53,.7);border:1px solid rgba(94,63,60,.3);padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#ffb4ab;border-radius:4px}
+.phase-title{font-family:'Bebas Neue';font-size:clamp(28px,4vw,40px);letter-spacing:.04em;color:#e2e2e2}
+.phase-desc{font-size:14px;line-height:1.7;color:#ae8783;max-width:600px}
+.phase-films{glass-panel:1;background:rgba(26,26,26,.5);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 20px;backdrop-filter:blur(20px)}
+.phase-film-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;font-weight:600;color:#e2e2e2;letter-spacing:.03em}
+.phase-film-item .dot{width:6px;height:6px;border-radius:50%;background:#ED1D24;flex-shrink:0}
+.phase-film-item.highlight{color:#ffb4ab}
+
+/* JOIN SECTION */
+#joinSection{padding:80px 4vw;background:#0c0f0f}
+.join-box{background:rgba(26,26,26,.5);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:48px 40px;display:flex;flex-direction:column;gap:32px;backdrop-filter:blur(20px)}
+.join-input{flex:1;background:rgba(30,32,32,.8);border:1px solid rgba(94,63,60,.3);border-radius:8px;padding:13px 18px;color:#e2e2e2;font-family:'Hanken Grotesk';font-size:14px;outline:none;transition:border-color .2s}
+.join-input:focus{border-color:#ED1D24}
+.join-input::placeholder{color:#ae8783}
+
+/* FOOTER */
+footer{background:#0c0f0f;border-top:1px solid rgba(94,63,60,.2);padding:56px 4vw;display:flex;flex-direction:column;gap:32px}
+.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:24px}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 24px}
+.footer-link{font-size:13px;color:#ae8783;text-decoration:none;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+.footer-link:hover{color:#ffb4ab}
+.footer-copy{font-size:11px;color:#5e3f3c;letter-spacing:.05em;text-transform:uppercase}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.87);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:#1e2020;border:1px solid rgba(255,255,255,.1);border-radius:16px;width:100%;max-width:860px;max-height:90vh;overflow-y:auto;position:relative;transform:scale(.95);transition:transform .3s;box-shadow:0 40px 80px rgba(0,0,0,.8)}
+.modal-bg.open .modal{transform:scale(1)}
+.modal-close{position:absolute;top:14px;right:14px;background:#282a2b;border:1px solid rgba(255,255,255,.1);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#e2e2e2;font-size:18px;z-index:10;transition:all .2s;font-family:'Material Symbols Outlined'}
+.modal-close:hover{background:#ED1D24;border-color:#ED1D24}
+.modal-top{display:flex;min-height:240px}
+.modal-poster-wrap{width:200px;flex-shrink:0;background:#1a1c1c;border-radius:16px 0 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.modal-poster{width:200px;object-fit:cover;display:block;min-height:280px}
+.modal-poster-ph{font-size:60px;color:#ae8783}
+.modal-info{padding:24px 24px 18px;flex:1;min-width:0}
+.modal-badges{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.modal-badge-type{font-size:11px;font-weight:700;color:#ED1D24;letter-spacing:.12em;text-transform:uppercase}
+.modal-badge-phase{background:#ED1D24;color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:3px;text-transform:uppercase}
+.modal-title{font-family:'Bebas Neue';font-size:clamp(22px,3vw,30px);letter-spacing:.04em;line-height:1.1;margin-bottom:10px;color:#e2e2e2}
+.modal-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.m-tag{background:#282a2b;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:3px 9px;font-size:12px;color:#e8bcb7}
+.m-tag-r{color:#ffb4ab;font-weight:700}
+.modal-genres{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.gpill{background:rgba(237,29,36,.12);border:1px solid rgba(237,29,36,.25);border-radius:24px;padding:3px 10px;font-size:11px;color:#ffb4ab}
+.actors-sec{margin-bottom:12px}
+.actors-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.actor-chip{background:#282a2b;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:3px 10px;font-size:11px;color:#e8bcb7;cursor:pointer;transition:all .15s}
+.actor-chip:hover{border-color:#ED1D24;color:#ffb4ab}
+.lang-row{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.lang-lbl{font-size:10px;color:#ae8783;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.lbtn{border-radius:5px;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Hanken Grotesk';transition:all .15s;letter-spacing:.05em;text-transform:uppercase}
+.lbtn.on{background:#ED1D24;border:none;color:#fff}
+.lbtn.off{background:#282a2b;border:1px solid rgba(255,255,255,.1);color:#ae8783}
+.modal-plot{font-size:14px;color:#e8bcb7;line-height:1.8;min-height:40px}
+.modal-bottom{padding:16px 24px 24px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.watch-btn{display:inline-flex;align-items:center;gap:9px;padding:12px 24px;color:#fff;font-family:'Bebas Neue';font-size:18px;letter-spacing:.06em;border-radius:8px;border:none;cursor:pointer;flex-shrink:0}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap}
+.action-btn{background:#282a2b;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 16px;font-size:13px;cursor:pointer;color:#e8bcb7;font-family:'Hanken Grotesk';transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.action-btn:hover{border-color:#ED1D24;color:#ffb4ab;background:#333535}
+.mini-label{font-size:10px;color:#ae8783;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:#282a2b;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 18px;font-size:13px;color:#e2e2e2;z-index:600;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* SPLASH */
+.splash{position:fixed;inset:0;background:#000;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.splash.show{opacity:1;pointer-events:all}
+.splash-logo{font-family:'Bebas Neue';font-size:72px;letter-spacing:10px;color:#ED1D24;background:#5c0004;padding:4px 20px;animation:pulse 1.1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.96)}}
+
+/* PLAYER */
+.player-wrap{position:fixed;inset:0;background:#000;z-index:400;display:none;flex-direction:column}
+.player-wrap.show{display:flex}
+.player-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(0,0,0,.9);flex-shrink:0;gap:10px}
+.player-logo{font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;color:#ED1D24;background:#5c0004;padding:1px 7px}
+.player-title{font-size:13px;color:#bbb;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pbar-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:7px;padding:6px 13px;color:#fff;font-family:'Hanken Grotesk';font-size:12px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.pbar-btn:hover{background:#ED1D24;border-color:#ED1D24}
+.player-body{flex:1;position:relative;overflow:hidden;background:#000}
+.player-video{width:100%;height:100%;display:block;object-fit:contain}
+.player-iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:none}
+.player-iframe.visible{display:block}
+
+@media(max-width:900px){
+  #mainNav .nav-links{display:none}
+  .mobile-menu-btn{display:block}
+  #heroSection{min-height:75vh}
+  .hero-title{font-size:clamp(40px,9vw,64px)}
+  .movie-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+  .modal-top{flex-direction:column}
+  .modal-poster-wrap{width:100%;border-radius:16px 16px 0 0;min-height:200px;max-height:260px}
+  .modal-poster{width:100%;min-height:200px;max-height:260px;object-fit:cover}
+  .modal-info{padding:16px 16px 12px}
+  .phases-line{display:none}
+  .join-box{padding:32px 24px}
+}
+@media(max-width:600px){
+  #filterSection{gap:7px}
+  .chips-row{gap:4px}
+  .char-card{min-width:180px}
+  .search-input{width:120px}.search-input:focus{width:150px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <span class="nav-logo" onclick="resetAll()">MARVELICIOUS</span>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-link active" onclick="setTab('all',this)" data-tab="all" id="navAll">Todo</button>
+    <button class="nav-link" onclick="setTab('movie',this)" data-tab="movie" id="navMovies">Películas</button>
+    <button class="nav-link" onclick="setTab('series',this)" data-tab="series" id="navSeries">Series</button>
+    <button class="nav-link" onclick="goToSection('charsSection')" id="navChars">Personajes</button>
+    <button class="nav-link" onclick="goToSection('phasesSection')" id="navPhases">Fases</button>
+  </div>
+  <div class="nav-right">
+    <div class="search-wrap" id="searchWrap" style="display:none">
+      <span class="search-ico">search</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Título, actor, género..." oninput="handleSearch(this.value)">
+    </div>
+    <button style="background:none;border:none;color:#e8bcb7;cursor:pointer;font-family:'Material Symbols Outlined';font-size:22px;" onclick="toggleSearch()" title="Buscar">search</button>
+    <!-- Lang toggle -->
+    <div style="display:flex;gap:2px;background:rgba(51,53,53,.5);border:1px solid rgba(94,63,60,.3);border-radius:6px;overflow:hidden;flex-shrink:0">
+      <button id="langBtnEs" onclick="setSiteLang('es')" style="padding:6px 10px;font-family:'Hanken Grotesk';font-size:12px;font-weight:700;letter-spacing:.06em;border:none;cursor:pointer;background:#ED1D24;color:#fff;transition:all .2s">ES</button>
+      <button id="langBtnEn" onclick="setSiteLang('en')" style="padding:6px 10px;font-family:'Hanken Grotesk';font-size:12px;font-weight:700;letter-spacing:.06em;border:none;cursor:pointer;background:none;color:#ae8783;transition:all .2s">EN</button>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">menu</button>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="heroSection">
+  <div class="hero-bg">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6TR8FvaGWsBfovnBrTEddpEl_wFTR9MyjR_mSLGBCp3hhIyIpEiJbQle4xTXKszwIzpn5R4K9jrTTxTeTo2dOKemq2OIb0jpXDfkdD8o7SbGxJvr1wPxoTHChTGSs041BFRMo4nNgeaj5xvYTIPDS6umY3ZcFNZGOEf-3EzL4Vuev55gNQAMigy0IPsvd-Sr_HgaiJvvbk2imjCDtdTkK-dkBODFpZJJDBYwHFNheJn2nwDj7B0yDm4OvHU4jBIqwsdqFnb_CPD8" alt="Avengers Endgame" id="heroImg" style="transition:transform .1s linear">
+    <div class="hero-overlay1"></div>
+    <div class="hero-overlay2"></div>
+    <div class="hero-overlay3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-phase-badge" id="heroBadge">Phase Three · Saga del Infinito</div>
+    <h1 class="hero-title">Avengers:<br>Endgame</h1>
+    <p class="hero-desc" id="heroDesc">Tras los devastadores eventos de Infinity War, el universo está en ruinas. Los Vengadores se reúnen por última vez para restaurar el equilibrio.</p>
+    <div class="hero-btns">
+      <button class="hero-btn-primary marvel-btn" style="border-radius:8px;border:none;cursor:pointer;" onclick="openModal('tt4154796')">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 1">play_arrow</span>
+        <span id="heroBtnTrailer">Ver Trailer</span>
+      </button>
+      <button class="hero-btn-secondary" onclick="openModal('tt4154796')">
+        <span style="font-family:'Material Symbols Outlined';font-size:18px">info</span>
+        <span id="heroBtnDetails">Detalles</span>
+      </button>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span style="font-family:'Material Symbols Outlined';font-size:20px;animation:bounce 1.5s infinite">keyboard_arrow_down</span>
+    <span id="heroScrollText">Explorar</span>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div id="filterSection">
+  <span class="filter-label" id="lblFase">Fase</span>
+  <div class="chips-row" id="phaseChips">
+    <span class="chip active" data-phase="all" onclick="setPhase('all',this)" id="chipPhaseAll">Todas</span>
+    <span class="chip" data-phase="1" onclick="setPhase('1',this)">Phase 1</span>
+    <span class="chip" data-phase="2" onclick="setPhase('2',this)">Phase 2</span>
+    <span class="chip" data-phase="3" onclick="setPhase('3',this)">Phase 3</span>
+    <span class="chip" data-phase="4" onclick="setPhase('4',this)">Phase 4</span>
+    <span class="chip" data-phase="5" onclick="setPhase('5',this)">Phase 5</span>
+  </div>
+  <div class="filter-sep"></div>
+  <span class="filter-label" id="lblFormato">Formato</span>
+  <div class="chips-row" id="typeChips">
+    <span class="chip active" data-type="all" onclick="setType('all',this)" id="chipTypeAll">Todo</span>
+    <span class="chip" data-type="movie" onclick="setType('movie',this)" id="chipTypeMovie">Películas</span>
+    <span class="chip" data-type="series" onclick="setType('series',this)" id="chipTypeSeries">Series</span>
+  </div>
+  <div class="filter-sep"></div>
+  <button class="btn-reset" id="btnReset" onclick="resetAll()">✕ Limpiar</button>
+</div>
+
+<!-- RESULTS BANNER -->
+<div id="resultsBanner"></div>
+
+<!-- SECTION HEADER -->
+<div class="sec-hdr" id="secHdr">
+  <div>
+    <div class="sec-eyebrow" id="secEyebrow">Marvel Cinematic Universe</div>
+    <div class="sec-title" id="secTitle">CATÁLOGO COMPLETO</div>
+  </div>
+  <div class="sec-meta" id="secMeta"></div>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="movie-grid" id="movieGrid">
+    <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+    <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
+  </div>
+</div>
+
+<!-- CHARACTERS SECTION -->
+<section id="charsSection" style="background:#0c0f0f;padding:72px 0">
+  <div style="padding:0 4vw;margin-bottom:32px;display:flex;justify-content:space-between;align-items:flex-end">
+    <div>
+      <div class="sec-eyebrow" id="charsEyebrow">Popular Esta Semana</div>
+      <div class="sec-title" style="margin-top:4px" id="charsTitle">HEROES ICÓNICOS</div>
+    </div>
+    <span style="font-size:12px;color:#ae8783;font-weight:600;text-transform:uppercase;letter-spacing:.08em" id="charsScrollHint">Deslizá →</span>
+  </div>
+  <div class="chars-track no-scrollbar" id="charsTrack">
+    <!-- Iron Man -->
+    <div class="char-card" onclick="searchByActor('Robert Downey Jr.')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkxHi-qMlYsUHxcKbchPZFoywOhR-fZkcBawOKiJe2Cm6uF6HuyghqU9cEHcEVJfuSnU0YXm0y4uBNjFrXzvItyGK_oJ1usKN2olEHyqD2DMLa2y8FrHfQ29rDeGfdZsl3fESZiYSpMU-KZMElD4ffwiavIMmSEYibOw00VHvv9S0ZmeRXjmMKdV7Th45jl7W0MU0km7NGDOzERJ20ZsL98tlJdPAvLgA5hztSjnhRKyMvooIF25sppgWOOGMS4MQpk0IIUvNV8FE" alt="Iron Man" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole0">Avenger · TRENDING #1</div>
+        <div class="char-name">IRON MAN</div>
+        <div class="char-alias" id="cAlias0">Tony Stark</div>
+        <div class="char-tags"><span class="char-tag">Tech</span><span class="char-tag">Genius</span></div>
+      </div>
+    </div>
+    <!-- Captain America -->
+    <div class="char-card" onclick="searchByActor('Chris Evans')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI29y1cP8cjCKnBJVp6LwM36-0fQQ1z_DZ80sbOW9diJWQZAgtxEiJbQle4xTXKszwIzpn5R4K9jrTTxTeTo2dOKemq2OIb0jpXDfkdD8o7SbGxJvr1wPxoTHChTGSs041BFRMo4nNgeaj5xvYTIPDS6umY3ZcFNZGOEf-3EzL4Vuev55gNQAMigy0IPsvd-Sr_HgaiJvvbk2imjCDtdTkK-dkBODFpZJJDBYwHFNheJn2nwDj7B0yDm4OvHU4jBIqwsdqFnb_CPD8" alt="Captain America" loading="lazy" onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDI29y1cP8cjCKnBJVp6LwM36-0fQQ1z_DZ80sbOW9diJWQZAgtxEiJbQle4xTXKszwIzpn5R4K9jrTTxTeTo2dOKemq2OIb0jpXDfkdD8o7SbGxJvr1wPxoTHChTGSs041BFRMo4nNgeaj5xvYTIPDS6umY3ZcFNZGOEf-3EzL4Vuev55gNQAMigy0IPsvd-Sr_HgaiJvvbk2imjCDtdTkK-dkBODFpZJJDBYwHFNheJn2nwDj7B0yDm4OvHU4jBIqwsdqFnb_CPD8'">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole1">Leader</div>
+        <div class="char-name">CAPTAIN AMERICA</div>
+        <div class="char-alias" id="cAlias1">Steve Rogers</div>
+        <div class="char-tags"><span class="char-tag">Leader</span><span class="char-tag">Soldier</span></div>
+      </div>
+    </div>
+    <!-- Scarlet Witch -->
+    <div class="char-card" onclick="searchByActor('Elizabeth Olsen')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6RfzoXDpnIZhRwepSa7jmO2cjXiejLv3kLU6kvbKM2zbWnwkAjswc8XwNOyN1edZKetgIWF8qh8H9RMfgjg6m2WmldlbhZKTvs1Lb0-aFeM1lldidYJslZuCJJgGJwdJOE0g1CCF-9cTAiK_Wd5OSlJM_c_rnumYHR0-xB-ATKb9xvEpz-KU9wz7vgPMP67ytmKuYBIMAKMcZHfB7bkidbYnyNyQhuEyHEHzIqDed4PtiVPdHnSxdNOTwrn1hcj7hXaJpeUvikSE" alt="Scarlet Witch" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole2">Sorcerer Supreme</div>
+        <div class="char-name">SCARLET WITCH</div>
+        <div class="char-alias" id="cAlias2">Wanda Maximoff</div>
+        <div class="char-tags"><span class="char-tag">Magic</span><span class="char-tag">Chaos</span></div>
+      </div>
+    </div>
+    <!-- Thor -->
+    <div class="char-card" onclick="searchByActor('Chris Hemsworth')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9ItbZQjf1YpzW6dw8inJWol-bCrH3sGpwO9JR3Jc9-QRo75iXeyrPMTZiB-R1lm3zKLJhPKjwQucbRZMw6ZziVGjIiUPgWK88QOVsO9LhaB_RKZzgyYEh9Vk217ltrl-COHhSJSEdSAGojHK-b6OlZhdZJOjoPagf691f_5_oyFhkeCgVQLMdNTWGaHJolq8Fc1c5QIpmBITMA-tX5XxE8VZXOIFywuCIO7a-JHXmcNQg0NH6Y1HhXB6XbvIs6zH6Txh79FnHpnk" alt="Thor" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole3">God of Thunder</div>
+        <div class="char-name">THOR</div>
+        <div class="char-alias" id="cAlias3">Thor Odinson</div>
+        <div class="char-tags"><span class="char-tag">God</span><span class="char-tag">Avenger</span></div>
+      </div>
+    </div>
+    <!-- Black Widow -->
+    <div class="char-card" onclick="searchByActor('Scarlett Johansson')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuClQuJneKpI32gxQkQXlMmEJEG8XFGcrvgtJaMmLafnKIGRSX-ayUzwRqt8UjnlowIDfLy4YdWyswpZFwFonlL11e3HLFsYlFJNIDDUK_VlEr6Wllo6xx9YCeIZ5_FN2jwgGgeL7T92xG5_df91o4noLd4gh4jf0BpnzXVIp_nyKgae-ncgPkZLeCur_-FcLp81frlDaU7VEsRhwhG1Sw8NDd5hLdbsLkdJQJaauoXUafD2HfuDE8o-rnHWObS6ClGQScR7keSHRr0" alt="Black Widow" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole4">S.H.I.E.L.D. Agent</div>
+        <div class="char-name">BLACK WIDOW</div>
+        <div class="char-alias" id="cAlias4">Natasha Romanoff</div>
+        <div class="char-tags"><span class="char-tag">Spy</span><span class="char-tag">Assassin</span></div>
+      </div>
+    </div>
+    <!-- Loki -->
+    <div class="char-card" onclick="searchByActor('Tom Hiddleston')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeeWkUHylaxHulAdKAlVvktAMDK_HezXSLliIjyYsshhFxwk0ZkaCG0bebuGreytv3m01g5GfTwcxSN2cmMg_kLn23U1OPaoHfwnpXbhKEiUucoODMOo1zSmoWK8DMWPkCdqbj4Z-a2yt5MVlsxcGx3XVubPvXeolJ70L6W24k9myN5LHso6lxaBIup8i6kk7xZ7RzN7SforU_b3lyHxDss2X7FkFcpTSDaRAXf-2OiPswRkZBx6VmFWGxBkZOyRlJaH6WwcfceKo" alt="Loki" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole5">God of Mischief</div>
+        <div class="char-name">LOKI</div>
+        <div class="char-alias" id="cAlias5">Loki Laufeyson</div>
+        <div class="char-tags"><span class="char-tag">Villain</span><span class="char-tag">Trickster</span></div>
+      </div>
+    </div>
+    <!-- Spider-Man -->
+    <div class="char-card" onclick="searchByActor('Tom Holland')">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuACSOGpRIs6kv9N21Imar0a86zpqNEAq9yIZe43cfSD0ErXYNhE8kX5ALkFuwSRHXnqoWA-NGGtXo_wcdY1RWu6-86c-a3PrIogovMOXnzXY07Ii9VhYJZ8SpqKfJusfMDlh7q1HiIbCQHPMP67Yr0mFfS7_oqHNpU2IxtzHL8AkvYfja4FF4_tyhKkYVjP0rt1WXsq5gUWbX8NiR4lwDR8HulD2pK1n1LSbcmG8nuG7LvfJ25Jg5ICpTeHcUZwfg5u4BZI6-GvC8Y" alt="Spider-Man" loading="lazy">
+      <div class="char-gradient"></div>
+      <div class="char-info">
+        <div class="char-role" id="cRole6">Friendly Neighborhood Hero</div>
+        <div class="char-name">SPIDER-MAN</div>
+        <div class="char-alias" id="cAlias6">Peter Parker</div>
+        <div class="char-tags"><span class="char-tag">Tech</span><span class="char-tag">Heir</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES TIMELINE SECTION -->
+<section id="phasesSection" style="padding:80px 4vw;background:#121414">
+  <div class="phases-line"></div>
+  <div style="margin-bottom:48px">
+    <div class="sec-eyebrow" id="phasesEyebrow">La Saga Hasta Ahora</div>
+    <div class="sec-title" style="margin-top:6px" id="phasesTitle">FASES DEL MCU</div>
+  </div>
+
+  <div style="display:grid;gap:40px;max-width:1100px">
+    <!-- Phase 1 -->
+    <div>
+      <div class="phase-hdr" style="margin-bottom:14px">
+        <div class="phase-dot"></div>
+        <div class="phase-year">2008 – 2012</div>
+        <div class="phase-title">Phase One</div>
+      </div>
+      <p class="phase-desc" id="phaseDesc1" style="margin-bottom:14px">La presentación de los héroes más poderosos de la Tierra. Desde Tony Stark hasta la Batalla de Nueva York.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div class="phase-films inner-glow">
+          <div class="phase-film-item"><div class="dot"></div>Iron Man (2008)</div>
+          <div class="phase-film-item"><div class="dot"></div>The Incredible Hulk (2008)</div>
+          <div class="phase-film-item"><div class="dot"></div>Iron Man 2 (2010)</div>
+          <div class="phase-film-item"><div class="dot"></div>Thor (2011)</div>
+          <div class="phase-film-item"><div class="dot"></div>Captain America: The First Avenger (2011)</div>
+          <div class="phase-film-item highlight"><div class="dot"></div>The Avengers (2012)</div>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 2 -->
+    <div>
+      <div class="phase-hdr" style="margin-bottom:14px">
+        <div class="phase-dot"></div>
+        <div class="phase-year">2013 – 2015</div>
+        <div class="phase-title">Phase Two</div>
+      </div>
+      <p class="phase-desc" id="phaseDesc2" style="margin-bottom:14px">Expandiendo el universo a través del cosmos y ahondando en las consecuencias del heroísmo.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div class="phase-films inner-glow">
+          <div class="phase-film-item"><div class="dot"></div>Iron Man 3 (2013)</div>
+          <div class="phase-film-item"><div class="dot"></div>Thor: The Dark World (2013)</div>
+          <div class="phase-film-item"><div class="dot"></div>Captain America: The Winter Soldier (2014)</div>
+          <div class="phase-film-item"><div class="dot"></div>Guardians of the Galaxy (2014)</div>
+          <div class="phase-film-item highlight"><div class="dot"></div>Avengers: Age of Ultron (2015)</div>
+          <div class="phase-film-item"><div class="dot"></div>Ant-Man (2015)</div>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 3 -->
+    <div>
+      <div class="phase-hdr" style="margin-bottom:14px">
+        <div class="phase-dot"></div>
+        <div class="phase-year">2016 – 2019</div>
+        <div class="phase-title">Phase Three · Infinity Saga</div>
+      </div>
+      <p class="phase-desc" id="phaseDesc3" style="margin-bottom:14px">La culminación de la Saga del Infinito. El enfrentamiento definitivo con Thanos.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div class="phase-films inner-glow">
+          <div class="phase-film-item"><div class="dot"></div>Captain America: Civil War (2016)</div>
+          <div class="phase-film-item"><div class="dot"></div>Doctor Strange (2016)</div>
+          <div class="phase-film-item"><div class="dot"></div>Guardians of the Galaxy Vol. 2 (2017)</div>
+          <div class="phase-film-item"><div class="dot"></div>Spider-Man: Homecoming (2017)</div>
+          <div class="phase-film-item"><div class="dot"></div>Thor: Ragnarok (2017)</div>
+          <div class="phase-film-item"><div class="dot"></div>Black Panther (2018)</div>
+          <div class="phase-film-item"><div class="dot"></div>Avengers: Infinity War (2018)</div>
+          <div class="phase-film-item"><div class="dot"></div>Ant-Man and the Wasp (2018)</div>
+          <div class="phase-film-item"><div class="dot"></div>Captain Marvel (2019)</div>
+          <div class="phase-film-item highlight"><div class="dot"></div>Avengers: Endgame (2019)</div>
+          <div class="phase-film-item"><div class="dot"></div>Spider-Man: Far From Home (2019)</div>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 4 -->
+    <div>
+      <div class="phase-hdr" style="margin-bottom:14px">
+        <div class="phase-dot"></div>
+        <div class="phase-year">2021 – 2022</div>
+        <div class="phase-title">Phase Four · Multiverse Saga</div>
+      </div>
+      <p class="phase-desc" id="phaseDesc4" style="margin-bottom:14px">El inicio de la Saga del Multiverso. Nuevos héroes y realidades alternativas.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div class="phase-films inner-glow">
+          <div class="phase-film-item"><div class="dot"></div>WandaVision (2021) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Falcon &amp; Winter Soldier (2021) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Black Widow (2021)</div>
+          <div class="phase-film-item"><div class="dot"></div>Loki (2021) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Shang-Chi (2021)</div>
+          <div class="phase-film-item"><div class="dot"></div>Eternals (2021)</div>
+          <div class="phase-film-item highlight"><div class="dot"></div>Spider-Man: No Way Home (2021)</div>
+          <div class="phase-film-item"><div class="dot"></div>Hawkeye (2021) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Moon Knight (2022) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Doctor Strange MoM (2022)</div>
+          <div class="phase-film-item"><div class="dot"></div>Thor: Love and Thunder (2022)</div>
+          <div class="phase-film-item"><div class="dot"></div>Ms. Marvel (2022) — Serie</div>
+          <div class="phase-film-item"><div class="dot"></div>Black Panther: Wakanda Forever (2022)</div>
+        </div>
+      </div>
+    </div>
+    <!-- Phase 5 -->
+    <div>
+      <div class="phase-hdr" style="margin-bottom:14px">
+        <div class="phase-dot" style="animation:pulse2 2s infinite"></div>
+        <div class="phase-year" id="phase5Year">2023 – Presente</div>
+        <div class="phase-title">Phase Five</div>
+      </div>
+      <p class="phase-desc" id="phaseDesc5" style="margin-bottom:14px">La saga continúa. Nuevas amenazas y el surgimiento del próximo Capitán América.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px">
+        <div class="phase-films inner-glow">
+          <div class="phase-film-item"><div class="dot"></div>Ant-Man and the Wasp: Quantumania (2023)</div>
+          <div class="phase-film-item"><div class="dot"></div>Secret Invasion (2023) — Serie</div>
+          <div class="phase-film-item highlight"><div class="dot"></div>Guardians of the Galaxy Vol. 3 (2023)</div>
+          <div class="phase-film-item"><div class="dot"></div>The Marvels (2023)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN / NEWSLETTER -->
+<section id="joinSection" style="background:#0c0f0f;padding:80px 4vw">
+  <div class="join-box" style="max-width:960px;margin:0 auto">
+    <div style="display:flex;flex-direction:column;gap:32px">
+      <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+        <div style="flex:1;min-width:260px">
+          <div class="sec-eyebrow" id="joinEyebrow">Exclusive Access</div>
+          <div class="sec-title" style="margin-top:6px" id="joinTitle">ÚNITE A LA INICIATIVA</div>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+            <input class="join-input" type="email" placeholder="Tu email" id="joinEmail">
+            <button class="marvel-btn" id="joinBtn" style="padding:13px 24px;font-family:'Bebas Neue';font-size:18px;letter-spacing:.1em;border:none;cursor:pointer;border-radius:8px;white-space:nowrap" onclick="joinNow()">Suscribirme</button>
+          </div>
+          <p style="font-size:11px;color:#5e3f3c;letter-spacing:.06em;text-transform:uppercase" id="joinLegal">Al suscribirte aceptás los Términos y Política de Privacidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div style="font-family:'Bebas Neue';font-size:24px;letter-spacing:4px;color:#ffb4ab;background:#5c0004;display:inline-block;padding:2px 10px">MARVELICIOUS</div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(94,63,60,.3);background:none;color:#ae8783;cursor:pointer;font-family:'Material Symbols Outlined';font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.borderColor='#ED1D24';this.style.color='#ffb4ab'" onmouseout="this.style.borderColor='rgba(94,63,60,.3)';this.style.color='#ae8783'">share</button>
+      <button style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(94,63,60,.3);background:none;color:#ae8783;cursor:pointer;font-family:'Material Symbols Outlined';font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.borderColor='#ED1D24';this.style.color='#ffb4ab'" onmouseout="this.style.borderColor='rgba(94,63,60,.3)';this.style.color='#ae8783'">notifications</button>
+      <button style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(94,63,60,.3);background:none;color:#ae8783;cursor:pointer;font-family:'Material Symbols Outlined';font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.borderColor='#ED1D24';this.style.color='#ffb4ab'" onmouseout="this.style.borderColor='rgba(94,63,60,.3)';this.style.color='#ae8783'">public</button>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal" onclick="maybeClose(event)">
+  <div class="modal" id="modalInner">
+    <button class="modal-close" onclick="closeModal()">close</button>
+    <div class="modal-top">
+      <div class="modal-poster-wrap" id="mPoster"></div>
+      <div class="modal-info">
+        <div class="modal-badges">
+          <span class="modal-badge-type" id="mType"></span>
+          <span class="modal-badge-phase" id="mPhase"></span>
+        </div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="modal-meta">
+          <span class="m-tag" id="mYear"></span>
+          <span class="m-tag m-tag-r" id="mRating"></span>
+          <span class="m-tag" id="mRuntime"></span>
+        </div>
+        <div class="modal-genres" id="mGenres"></div>
+        <div id="actorsSec" style="display:none;margin-bottom:12px">
+          <div class="mini-label" id="modalCastLabel">Reparto</div>
+          <div class="actors-list" id="actorsList"></div>
+        </div>
+        <div class="lang-row">
+          <span class="lang-lbl" id="modalSynopsisLabel">Sinopsis</span>
+          <button id="btnEs" class="lbtn on" onclick="setLang('es')">ES</button>
+          <button id="btnEn" class="lbtn off" onclick="setLang('en')">EN</button>
+        </div>
+        <div class="modal-plot" id="mPlot">Cargando sinopsis...</div>
+      </div>
+    </div>
+    <div class="modal-bottom">
+      <button class="watch-btn marvel-btn" onclick="startPlayer()" style="border:none;cursor:pointer;border-radius:8px;">
+        <span style="font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 1">play_arrow</span>
+        <span id="modalWatchText">Ver ahora</span>
+      </button>
+      <div class="modal-actions">
+        <button class="action-btn" onclick="addWatchlist()">
+          <span style="font-family:'Material Symbols Outlined';font-size:16px">bookmark_add</span> <span id="modalWatchlistText">Watchlist</span>
+        </button>
+        <button class="action-btn" onclick="shareItem()">
+          <span style="font-family:'Material Symbols Outlined';font-size:16px">share</span> <span id="modalShareText">Compartir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="splash-logo">MARVELICIOUS</div>
+  <div style="font-size:11px;color:#444;letter-spacing:5px;margin-top:10px;text-transform:uppercase" id="splashSub">Preparando reproducción</div>
+</div>
+
+<!-- PLAYER -->
+<div class="player-wrap" id="playerWrap">
+  <div class="player-bar">
+    <span class="player-logo">MARVELICIOUS</span>
+    <span class="player-title" id="playerTitle"></span>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button class="pbar-btn" onclick="sharePlayer()">
+        <span style="font-family:'Material Symbols Outlined';font-size:14px">share</span> <span id="pbarShareText">Compartir</span>
+      </button>
+      <button class="pbar-btn" onclick="reqFullscreen()">
+        <span style="font-family:'Material Symbols Outlined';font-size:14px">fullscreen</span> <span id="pbarFullscreenText">Pantalla completa</span>
+      </button>
+      <button class="pbar-btn" onclick="closePlayer()">
+        <span style="font-family:'Material Symbols Outlined';font-size:14px">close</span> <span id="pbarCloseText">Cerrar</span>
+      </button>
+    </div>
+  </div>
+  <div class="player-body" id="playerBody">
+    <video class="player-video" id="playerVideo" controls playsinline controlslist="nodownload" oncontextmenu="return false"></video>
+    <iframe class="player-iframe" id="playerFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+  </div>
+</div>
+
+<script>
+const OMDB_KEY = 'trilogy'; // reemplazá por tu key de omdbapi.com
+
+/* ── TRANSLATIONS ── */
+const TRANSLATIONS = {
+  es:{
+    navAll:'Todo', navMovies:'Películas', navSeries:'Series',
+    navChars:'Personajes', navPhases:'Fases', navJoin:'JOIN NOW',
+    searchPh:'Título, actor, género...',
+    lblFase:'Fase', lblFormato:'Formato',
+    chipPhaseAll:'Todas', chipTypeAll:'Todo',
+    chipTypeMovie:'Películas', chipTypeSeries:'Series',
+    btnReset:'✕ Limpiar',
+    heroBadge:'Phase Three · Saga del Infinito',
+    heroDesc:'Tras los devastadores eventos de Infinity War, el universo está en ruinas. Los Vengadores se reúnen por última vez para restaurar el equilibrio.',
+    heroBtnTrailer:'Ver Trailer', heroBtnDetails:'Detalles', heroScroll:'Explorar',
+    secEyebrow:'Marvel Cinematic Universe',
+    secTitleAll:'CATÁLOGO COMPLETO', secTitleMovies:'PELÍCULAS',
+    secTitleSeries:'SERIES', secResultsPrefix:'RESULTADOS:',
+    charsEyebrow:'Popular Esta Semana', charsTitle:'HEROES ICÓNICOS', charsHint:'Deslizá →',
+    cRoles:['Avenger · TRENDING #1','Líder','Hechicera Suprema','Dios del Trueno','Agente S.H.I.E.L.D.','Dios de la Mentira','Héroe del Barrio'],
+    cAliases:['Tony Stark','Steve Rogers','Wanda Maximoff','Thor Odinson','Natasha Romanoff','Loki Laufeyson','Peter Parker'],
+    phasesEyebrow:'La Saga Hasta Ahora', phasesTitle:'FASES DEL MCU',
+    phase5Year:'2023 – Presente',
+    phaseDescs:[
+      'La presentación de los héroes más poderosos de la Tierra. Desde Tony Stark hasta la Batalla de Nueva York.',
+      'Expandiendo el universo a través del cosmos y ahondando en las consecuencias del heroísmo.',
+      'La culminación de la Saga del Infinito. El enfrentamiento definitivo con Thanos.',
+      'El inicio de la Saga del Multiverso. Nuevos héroes y realidades alternativas.',
+      'La saga continúa. Nuevas amenazas y el surgimiento del próximo Capitán América.'
+    ],
+    joinEyebrow:'Acceso Exclusivo', joinTitle:'ÚNITE A LA INICIATIVA',
+    joinDesc:'Recibí las últimas novedades, lanzamientos y contenido exclusivo del Universo Cinematográfico de Marvel.',
+    joinBtn:'Suscribirme', joinPlaceholder:'Tu email',
+    joinLegal:'Al suscribirte aceptás los Términos y Política de Privacidad.',
+    footerCopy:'© 2024 Marvel Entertainment. Todos los derechos reservados.',
+    modalCastLabel:'Reparto', modalSynopsisLabel:'Sinopsis',
+    modalWatchText:'Ver ahora', modalShareText:'Compartir',
+    modalMovieType:'🎬 PELÍCULA', modalSeriesType:'📺 SERIE',
+    plotLoading:'Cargando sinopsis...', plotUnavailable:'Sinopsis no disponible.',
+    splashSub:'Preparando reproducción',
+    pbarShare:'Compartir', pbarFullscreen:'Pantalla completa', pbarClose:'Cerrar',
+    emptyTitle:'SIN RESULTADOS', emptySub:'Probá con otro filtro',
+    cardSeries:'SERIE',
+    countTitles:(n)=>`${n} título${n!==1?'s':''}`,
+    countResults:(n)=>`${n} resultado${n!==1?'s':''}`,
+    tagMovies:'🎬 Películas', tagSeries:'📺 Series',
+    toastCopied:'✅ Link copiado',
+    toastWatchlist:(t)=>`✅ "${t}" añadido a tu Watchlist`,
+    toastEmailError:'Por favor ingresá un email válido',
+    toastSubscribed:'✅ ¡Bienvenido a la Iniciativa Vengadores!',
+    shareTitle:'MARVELICIOUS',
+  },
+  en:{
+    navAll:'All', navMovies:'Movies', navSeries:'Series',
+    navChars:'Characters', navPhases:'Phases', navJoin:'JOIN NOW',
+    searchPh:'Title, actor, genre...',
+    lblFase:'Phase', lblFormato:'Format',
+    chipPhaseAll:'All', chipTypeAll:'All',
+    chipTypeMovie:'Movies', chipTypeSeries:'Series',
+    btnReset:'✕ Clear',
+    heroBadge:'Phase Three · Infinity Saga',
+    heroDesc:'After the devastating events of Infinity War, the universe is in ruins. The Avengers assemble one last time to restore balance to the universe.',
+    heroBtnTrailer:'Watch Trailer', heroBtnDetails:'Details', heroScroll:'Explore',
+    secEyebrow:'Marvel Cinematic Universe',
+    secTitleAll:'FULL CATALOG', secTitleMovies:'MOVIES',
+    secTitleSeries:'SERIES', secResultsPrefix:'RESULTS:',
+    charsEyebrow:'Popular This Week', charsTitle:'ICONIC LEGENDS', charsHint:'Scroll →',
+    cRoles:['Avenger · TRENDING #1','Leader','Sorcerer Supreme','God of Thunder','S.H.I.E.L.D. Agent','God of Mischief','Friendly Neighborhood Hero'],
+    cAliases:['Tony Stark','Steve Rogers','Wanda Maximoff','Thor Odinson','Natasha Romanoff','Loki Laufeyson','Peter Parker'],
+    phasesEyebrow:'The Saga So Far', phasesTitle:'MCU PHASES',
+    phase5Year:'2023 – Present',
+    phaseDescs:[
+      'The introduction of Earth\'s Mightiest Heroes. From Tony Stark to the Battle of New York.',
+      'Expanding the universe across the cosmos and delving into the consequences of heroism.',
+      'The culmination of the Infinity Saga. The ultimate showdown with Thanos.',
+      'The beginning of the Multiverse Saga. New heroes and alternate realities.',
+      'The saga continues. New threats and the rise of the next Captain America.'
+    ],
+    joinEyebrow:'Exclusive Access', joinTitle:'JOIN THE INITIATIVE',
+    joinDesc:'Get the latest news, releases, and exclusive content from the Marvel Cinematic Universe.',
+    joinBtn:'Subscribe', joinPlaceholder:'Your email',
+    joinLegal:'By subscribing you agree to our Terms & Privacy Policy.',
+    footerCopy:'© 2024 Marvel Entertainment. All rights reserved.',
+    modalCastLabel:'Cast', modalSynopsisLabel:'Synopsis',
+    modalWatchText:'Watch Now', modalShareText:'Share',
+    modalMovieType:'🎬 MOVIE', modalSeriesType:'📺 SERIES',
+    plotLoading:'Loading synopsis...', plotUnavailable:'Synopsis not available.',
+    splashSub:'Preparing playback',
+    pbarShare:'Share', pbarFullscreen:'Fullscreen', pbarClose:'Close',
+    emptyTitle:'NO RESULTS', emptySub:'Try a different filter',
+    cardSeries:'SERIES',
+    countTitles:(n)=>`${n} title${n!==1?'s':''}`,
+    countResults:(n)=>`${n} result${n!==1?'s':''}`,
+    tagMovies:'🎬 Movies', tagSeries:'📺 Series',
+    toastCopied:'✅ Link copied',
+    toastWatchlist:(t)=>`✅ "${t}" added to your Watchlist`,
+    toastEmailError:'Please enter a valid email',
+    toastSubscribed:'✅ Welcome to the Avengers Initiative!',
+    shareTitle:'MARVELICIOUS',
+  }
+};
+
+/* ── SITE LANGUAGE (separate from modal plot lang) ── */
+let siteLang = 'es';
+function T(){ return TRANSLATIONS[siteLang]; }
+
+function setSiteLang(lang){
+  siteLang = lang;
+  // Update lang toggle buttons
+  const esBtn = document.getElementById('langBtnEs');
+  const enBtn = document.getElementById('langBtnEn');
+  esBtn.style.background = lang==='es' ? '#ED1D24' : 'none';
+  esBtn.style.color = lang==='es' ? '#fff' : '#ae8783';
+  enBtn.style.background = lang==='en' ? '#ED1D24' : 'none';
+  enBtn.style.color = lang==='en' ? '#fff' : '#ae8783';
+  // Nav links
+  document.getElementById('navAll').textContent = T().navAll;
+  document.getElementById('navMovies').textContent = T().navMovies;
+  document.getElementById('navSeries').textContent = T().navSeries;
+  document.getElementById('navChars').textContent = T().navChars;
+  document.getElementById('navPhases').textContent = T().navPhases;
+  document.getElementById('searchInput').placeholder = T().searchPh;
+  // Filter bar
+  document.getElementById('lblFase').textContent = T().lblFase;
+  document.getElementById('lblFormato').textContent = T().lblFormato;
+  document.getElementById('chipPhaseAll').textContent = T().chipPhaseAll;
+  document.getElementById('chipTypeAll').textContent = T().chipTypeAll;
+  document.getElementById('chipTypeMovie').textContent = T().chipTypeMovie;
+  document.getElementById('chipTypeSeries').textContent = T().chipTypeSeries;
+  document.getElementById('btnReset').textContent = T().btnReset;
+  // Hero
+  document.getElementById('heroBadge').textContent = T().heroBadge;
+  document.getElementById('heroDesc').textContent = T().heroDesc;
+  document.getElementById('heroBtnTrailer').textContent = T().heroBtnTrailer;
+  document.getElementById('heroBtnDetails').textContent = T().heroBtnDetails;
+  document.getElementById('heroScrollText').textContent = T().heroScroll;
+  // Chars
+  document.getElementById('charsEyebrow').textContent = T().charsEyebrow;
+  document.getElementById('charsTitle').textContent = T().charsTitle;
+  document.getElementById('charsScrollHint').textContent = T().charsHint;
+  T().cRoles.forEach((r,i)=>{ const el=document.getElementById('cRole'+i); if(el) el.textContent=r; });
+  T().cAliases.forEach((a,i)=>{ const el=document.getElementById('cAlias'+i); if(el) el.textContent=a; });
+  // Phases
+  document.getElementById('phasesEyebrow').textContent = T().phasesEyebrow;
+  document.getElementById('phasesTitle').textContent = T().phasesTitle;
+  document.getElementById('phase5Year').textContent = T().phase5Year;
+  T().phaseDescs.forEach((d,i)=>{ const el=document.getElementById('phaseDesc'+(i+1)); if(el) el.textContent=d; });
+  // Join
+  document.getElementById('joinEyebrow').textContent = T().joinEyebrow;
+  document.getElementById('joinTitle').textContent = T().joinTitle;
+  document.getElementById('joinBtn').textContent = T().joinBtn;
+  document.getElementById('joinEmail').placeholder = T().joinPlaceholder;
+  document.getElementById('joinLegal').textContent = T().joinLegal;
+  // Footer
+  // Modal static labels (update if open)
+  document.getElementById('modalCastLabel').textContent = T().modalCastLabel;
+  document.getElementById('modalSynopsisLabel').textContent = T().modalSynopsisLabel;
+  document.getElementById('modalWatchText').textContent = T().modalWatchText;
+  document.getElementById('modalShareText').textContent = T().modalShareText;
+  // Player bar
+  document.getElementById('splashSub').textContent = T().splashSub;
+  document.getElementById('pbarShareText').textContent = T().pbarShare;
+  document.getElementById('pbarFullscreenText').textContent = T().pbarFullscreen;
+  document.getElementById('pbarCloseText').textContent = T().pbarClose;
+  // If modal open, update type label and plot
+  if(currentItem && document.getElementById('modal').classList.contains('open')){
+    document.getElementById('mType').textContent = currentItem.type==='movie' ? T().modalMovieType : T().modalSeriesType;
+    // Switch plot to site language
+    currentLang = lang;
+    document.getElementById('btnEs').className='lbtn '+(lang==='es'?'on':'off');
+    document.getElementById('btnEn').className='lbtn '+(lang==='en'?'on':'off');
+    if(lang==='es') document.getElementById('mPlot').textContent = plotES||plotEN||T().plotUnavailable;
+    else document.getElementById('mPlot').textContent = plotEN||T().plotUnavailable;
+  }
+  // Re-render grid to update card type labels and empty state
+  applyFilters();
+}
+
+/* ── MCU CATALOG ── */
+const MCU = [
+  // Phase 1
+  {imdbID:'tt0371746',title:'Iron Man',year:'2008',rating:'7.9',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:1,actors:'Robert Downey Jr., Gwyneth Paltrow, Jeff Bridges'},
+  {imdbID:'tt0800080',title:'The Incredible Hulk',year:'2008',rating:'6.7',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:1,actors:'Edward Norton, Liv Tyler, Tim Roth'},
+  {imdbID:'tt1228705',title:'Iron Man 2',year:'2010',rating:'7.0',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:1,actors:'Robert Downey Jr., Gwyneth Paltrow, Don Cheadle'},
+  {imdbID:'tt0800369',title:'Thor',year:'2011',rating:'7.0',genre:'Acción, Aventura, Fantasía',type:'movie',phase:1,actors:'Chris Hemsworth, Natalie Portman, Tom Hiddleston'},
+  {imdbID:'tt0458339',title:'Captain America: The First Avenger',year:'2011',rating:'6.9',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:1,actors:'Chris Evans, Hugo Weaving, Samuel L. Jackson'},
+  {imdbID:'tt0848228',title:'The Avengers',year:'2012',rating:'8.0',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:1,actors:'Robert Downey Jr., Chris Evans, Scarlett Johansson'},
+  // Phase 2
+  {imdbID:'tt1300854',title:'Iron Man 3',year:'2013',rating:'7.1',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:2,actors:'Robert Downey Jr., Gwyneth Paltrow, Don Cheadle'},
+  {imdbID:'tt1981115',title:'Thor: The Dark World',year:'2013',rating:'6.9',genre:'Acción, Aventura, Fantasía',type:'movie',phase:2,actors:'Chris Hemsworth, Natalie Portman, Tom Hiddleston'},
+  {imdbID:'tt1843866',title:'Captain America: The Winter Soldier',year:'2014',rating:'7.7',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:2,actors:'Chris Evans, Samuel L. Jackson, Scarlett Johansson'},
+  {imdbID:'tt2015381',title:'Guardians of the Galaxy',year:'2014',rating:'8.0',genre:'Acción, Aventura, Comedia',type:'movie',phase:2,actors:'Chris Pratt, Zoe Saldana, Dave Bautista'},
+  {imdbID:'tt2395427',title:'Avengers: Age of Ultron',year:'2015',rating:'7.3',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:2,actors:'Robert Downey Jr., Chris Evans, Mark Ruffalo'},
+  {imdbID:'tt0478970',title:'Ant-Man',year:'2015',rating:'7.3',genre:'Acción, Aventura, Comedia',type:'movie',phase:2,actors:'Paul Rudd, Michael Douglas, Evangeline Lilly'},
+  // Phase 3
+  {imdbID:'tt3498820',title:'Captain America: Civil War',year:'2016',rating:'7.8',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:3,actors:'Chris Evans, Robert Downey Jr., Scarlett Johansson'},
+  {imdbID:'tt1211837',title:'Doctor Strange',year:'2016',rating:'7.5',genre:'Acción, Aventura, Fantasía',type:'movie',phase:3,actors:'Benedict Cumberbatch, Chiwetel Ejiofor, Rachel McAdams'},
+  {imdbID:'tt3896198',title:'Guardians of the Galaxy Vol. 2',year:'2017',rating:'7.6',genre:'Acción, Aventura, Comedia',type:'movie',phase:3,actors:'Chris Pratt, Zoe Saldana, Dave Bautista'},
+  {imdbID:'tt2250912',title:'Spider-Man: Homecoming',year:'2017',rating:'7.4',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:3,actors:'Tom Holland, Michael Keaton, Robert Downey Jr.'},
+  {imdbID:'tt3501632',title:'Thor: Ragnarok',year:'2017',rating:'7.9',genre:'Acción, Aventura, Comedia',type:'movie',phase:3,actors:'Chris Hemsworth, Tom Hiddleston, Cate Blanchett'},
+  {imdbID:'tt1825683',title:'Black Panther',year:'2018',rating:'7.3',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:3,actors:'Chadwick Boseman, Michael B. Jordan, Lupita Nyong\'o'},
+  {imdbID:'tt4154756',title:'Avengers: Infinity War',year:'2018',rating:'8.4',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:3,actors:'Robert Downey Jr., Chris Hemsworth, Mark Ruffalo'},
+  {imdbID:'tt5095030',title:'Ant-Man and the Wasp',year:'2018',rating:'7.0',genre:'Acción, Aventura, Comedia',type:'movie',phase:3,actors:'Paul Rudd, Evangeline Lilly, Michael Peña'},
+  {imdbID:'tt4154664',title:'Captain Marvel',year:'2019',rating:'6.8',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:3,actors:'Brie Larson, Samuel L. Jackson, Ben Mendelsohn'},
+  {imdbID:'tt4154796',title:'Avengers: Endgame',year:'2019',rating:'8.4',genre:'Acción, Aventura, Drama',type:'movie',phase:3,actors:'Robert Downey Jr., Chris Evans, Mark Ruffalo'},
+  {imdbID:'tt6320628',title:'Spider-Man: Far From Home',year:'2019',rating:'7.4',genre:'Acción, Aventura, Comedia',type:'movie',phase:3,actors:'Tom Holland, Zendaya, Jake Gyllenhaal'},
+  // Phase 4 — Movies
+  {imdbID:'tt3480822',title:'Black Widow',year:'2021',rating:'6.7',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:4,actors:'Scarlett Johansson, Florence Pugh, David Harbour'},
+  {imdbID:'tt9032400',title:'Shang-Chi and the Legend of the Ten Rings',year:'2021',rating:'7.4',genre:'Acción, Aventura, Fantasía',type:'movie',phase:4,actors:'Simu Liu, Awkwafina, Meng\'er Zhang'},
+  {imdbID:'tt9032974',title:'Eternals',year:'2021',rating:'6.3',genre:'Acción, Aventura, Drama',type:'movie',phase:4,actors:'Gemma Chan, Richard Madden, Angelina Jolie'},
+  {imdbID:'tt10872600',title:'Spider-Man: No Way Home',year:'2021',rating:'8.2',genre:'Acción, Aventura, Fantasía',type:'movie',phase:4,actors:'Tom Holland, Zendaya, Benedict Cumberbatch'},
+  {imdbID:'tt9419884',title:'Doctor Strange in the Multiverse of Madness',year:'2022',rating:'6.9',genre:'Acción, Aventura, Fantasía',type:'movie',phase:4,actors:'Benedict Cumberbatch, Elizabeth Olsen, Xochitl Gomez'},
+  {imdbID:'tt10229960',title:'Thor: Love and Thunder',year:'2022',rating:'6.3',genre:'Acción, Aventura, Comedia',type:'movie',phase:4,actors:'Chris Hemsworth, Natalie Portman, Tessa Thompson'},
+  {imdbID:'tt9114286',title:'Black Panther: Wakanda Forever',year:'2022',rating:'6.7',genre:'Acción, Aventura, Drama',type:'movie',phase:4,actors:'Letitia Wright, Lupita Nyong\'o, Angela Bassett'},
+  // Phase 4 — Series
+  {imdbID:'tt9140560',title:'WandaVision',year:'2021',rating:'7.9',genre:'Acción, Comedia, Drama',type:'series',phase:4,actors:'Elizabeth Olsen, Paul Bettany, Kathryn Hahn'},
+  {imdbID:'tt9208876',title:'The Falcon and the Winter Soldier',year:'2021',rating:'7.2',genre:'Acción, Aventura, Drama',type:'series',phase:4,actors:'Anthony Mackie, Sebastian Stan, Wyatt Russell'},
+  {imdbID:'tt9140554',title:'Loki',year:'2021',rating:'8.2',genre:'Acción, Aventura, Fantasía',type:'series',phase:4,actors:'Tom Hiddleston, Sophia Di Martino, Owen Wilson'},
+  {imdbID:'tt10160804',title:'Hawkeye',year:'2021',rating:'7.5',genre:'Acción, Comedia, Drama',type:'series',phase:4,actors:'Jeremy Renner, Hailee Steinfeld, Florence Pugh'},
+  {imdbID:'tt10234724',title:'Moon Knight',year:'2022',rating:'7.4',genre:'Acción, Aventura, Drama',type:'series',phase:4,actors:'Oscar Isaac, Ethan Hawke, May Calamawy'},
+  {imdbID:'tt10857164',title:'Ms. Marvel',year:'2022',rating:'6.2',genre:'Acción, Aventura, Drama',type:'series',phase:4,actors:'Iman Vellani, Matt Lintz, Yasmeen Fletcher'},
+  // Phase 5
+  {imdbID:'tt10954600',title:'Ant-Man and the Wasp: Quantumania',year:'2023',rating:'6.1',genre:'Acción, Aventura, Comedia',type:'movie',phase:5,actors:'Paul Rudd, Evangeline Lilly, Jonathan Majors'},
+  {imdbID:'tt6791350',title:'Guardians of the Galaxy Vol. 3',year:'2023',rating:'7.9',genre:'Acción, Aventura, Comedia',type:'movie',phase:5,actors:'Chris Pratt, Zoe Saldana, Bradley Cooper'},
+  {imdbID:'tt10676048',title:'The Marvels',year:'2023',rating:'5.7',genre:'Acción, Aventura, Sci-Fi',type:'movie',phase:5,actors:'Brie Larson, Teyonah Parris, Iman Vellani'},
+  {imdbID:'tt13157618',title:'Secret Invasion',year:'2023',rating:'6.0',genre:'Acción, Drama, Sci-Fi',type:'series',phase:5,actors:'Samuel L. Jackson, Cobie Smulders, Olivia Colman'},
+];
+
+/* ── STATE ── */
+let state = {tab:'all', phase:'all', search:''};
+let currentItem = null;
+let plotEN = '', plotES = '', currentLang = 'es';
+let searchVisible = false;
+
+
+/* ── POSTER ── */
+function posterUrl(id){ return `https://img.omdbapi.com/?i=${id}&apikey=${OMDB_KEY}&h=420`; }
+function watchUrl(id){ return `https://www.playimdb.com/es/title/${id}/`; }
+
+/* ── HELPERS ── */
+function goToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+function toggleSearch(){
+  searchVisible = !searchVisible;
+  const w = document.getElementById('searchWrap');
+  w.style.display = searchVisible ? 'flex' : 'none';
+  if(searchVisible) document.getElementById('searchInput').focus();
+}
+
+function toggleMobileMenu(){
+  const nav = document.getElementById('navLinks');
+  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+  nav.style.flexDirection = 'column';
+  nav.style.position = 'absolute';
+  nav.style.top = '64px';
+  nav.style.left = '0';
+  nav.style.right = '0';
+  nav.style.background = 'rgba(18,20,20,.98)';
+  nav.style.padding = '16px 4vw';
+  nav.style.gap = '4px';
+  nav.style.borderBottom = '1px solid rgba(94,63,60,.3)';
+  nav.style.zIndex = '200';
+}
+
+/* ── TOAST ── */
+function showToast(msg,dur=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+/* ── FILTERS ── */
+function hasFilter(){ return state.tab!=='all'||state.phase!=='all'||state.search; }
+
+function setTab(tab,el){
+  state.tab=tab;
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('#typeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.type===tab));
+  applyFilters();
+}
+
+function setType(type,el){
+  state.tab=type;
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===type));
+  document.querySelectorAll('#typeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.type===type));
+  applyFilters();
+}
+
+function setPhase(ph,el){
+  state.phase=ph;
+  document.querySelectorAll('#phaseChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.phase===ph));
+  applyFilters();
+}
+
+function handleSearch(v){ state.search=v.trim(); applyFilters(); }
+
+function resetAll(){
+  state={tab:'all',phase:'all',search:''};
+  document.getElementById('searchInput').value='';
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab==='all'));
+  document.querySelectorAll('#typeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.type==='all'));
+  document.querySelectorAll('#phaseChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.phase==='all'));
+  document.getElementById('secTitle').textContent=T().secTitleAll;
+  document.getElementById('secEyebrow').textContent=T().secEyebrow;
+  applyFilters();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function applyFilters(){
+  let r=[...MCU];
+  if(state.tab!=='all') r=r.filter(i=>i.type===state.tab);
+  if(state.phase!=='all') r=r.filter(i=>String(i.phase)===state.phase);
+  if(state.search){
+    const s=state.search.toLowerCase();
+    r=r.filter(i=>i.title.toLowerCase().includes(s)||(i.genre||'').toLowerCase().includes(s)||(i.actors||'').toLowerCase().includes(s));
+  }
+  renderGrid(r);
+  renderBanner(r.length);
+  document.getElementById('secMeta').textContent=T().countTitles(r.length);
+  // section title
+  if(state.search) document.getElementById('secTitle').textContent=`${T().secResultsPrefix} "${state.search}"`;
+  else if(state.phase!=='all') document.getElementById('secTitle').textContent=`${T().lblFase.toUpperCase()} ${state.phase}`;
+  else if(state.tab==='movie') document.getElementById('secTitle').textContent=T().secTitleMovies;
+  else if(state.tab==='series') document.getElementById('secTitle').textContent=T().secTitleSeries;
+  else document.getElementById('secTitle').textContent=T().secTitleAll;
+}
+
+function renderBanner(count){
+  const b=document.getElementById('resultsBanner');
+  if(!hasFilter()){b.innerHTML='';return;}
+  const tags=[];
+  if(state.search) tags.push({html:`🔍 <strong>"${state.search}"</strong>`,k:'search'});
+  if(state.tab!=='all') tags.push({html:state.tab==='movie'?T().tagMovies:T().tagSeries,k:'tab'});
+  if(state.phase!=='all') tags.push({html:`⚡ <strong>${T().lblFase} ${state.phase}</strong>`,k:'phase'});
+  b.innerHTML=tags.map(t=>`<span class="rb-tag">${t.html}<button class="rb-x" onclick="clearF('${t.k}')">✕</button></span>`).join('')
+    +`<span class="rb-count">${T().countResults(count)}</span>`;
+}
+
+function clearF(k){
+  if(k==='search'){state.search='';document.getElementById('searchInput').value='';}
+  if(k==='tab'){setType('all');document.querySelectorAll('#typeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.type==='all'));}
+  if(k==='phase'){setPhase('all');document.querySelectorAll('#phaseChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.phase==='all'));}
+  applyFilters();
+}
+
+function joinNow(){
+  const email=document.getElementById('joinEmail').value;
+  if(!email||!email.includes('@')){showToast(T().toastEmailError);return;}
+  document.getElementById('joinEmail').value='';
+  showToast(T().toastSubscribed);
+}
+
+/* ── GRID ── */
+function renderGrid(items){
+  const grid=document.getElementById('movieGrid');
+  if(!items.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🎬</div><div class="empty-t">${T().emptyTitle}</div><p>${T().emptySub}</p></div>`;
+    return;
+  }
+  grid.innerHTML=items.map(item=>{
+    const pid=item.imdbID;
+    return `<div class="card" onclick="openModal('${pid}')">
+      <div class="card-poster-wrap">
+        <img class="card-poster" src="${posterUrl(pid)}" alt="${item.title}" loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-ph" style="display:none;align-items:center;justify-content:center;position:absolute;inset:0">🎞️</div>
+        <div class="card-overlay"><div class="play-btn">play_arrow</div></div>
+        <div class="card-phase">Phase ${item.phase}</div>
+        <div class="card-type">${item.type==='movie'?'FILM':T().cardSeries}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${item.title}</div>
+        <div class="card-meta-row">
+          <span class="card-year">${item.year}</span>
+          ${item.rating?`<span class="card-rating">★ ${item.rating}</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── OMDB FETCH ── */
+async function omdbFetch(id,lang){
+  try{
+    let url=`https://www.omdbapi.com/?i=${id}&apikey=${OMDB_KEY}&plot=full`;
+    if(lang) url+=`&language=${lang}`;
+    const r=await fetch(url);const d=await r.json();
+    return d.Response==='True'?d:null;
+  }catch(e){return null;}
+}
+
+/* ── SHARE ── */
+function buildShareUrl(id){return window.location.href.split('?')[0]+'?id='+id;}
+function shareItem(){
+  if(!currentItem)return;
+  const url=buildShareUrl(currentItem.imdbID);
+  if(navigator.share){navigator.share({title:currentItem.title+' — '+T().shareTitle,url}).catch(()=>{});}
+  else{navigator.clipboard.writeText(url).then(()=>showToast(T().toastCopied)).catch(()=>showToast(url,5000));}
+}
+function sharePlayer(){shareItem();}
+function addWatchlist(){if(currentItem)showToast(T().toastWatchlist(currentItem.title));}
+
+/* ── PLAYER ── */
+function startPlayer(){
+  if(!currentItem)return;
+  closeModal();
+  const splash=document.getElementById('splash');
+  splash.classList.add('show');
+  setTimeout(()=>{
+    splash.classList.remove('show');
+    document.getElementById('playerTitle').textContent=currentItem.title;
+    launchPlayer(currentItem.imdbID);
+    document.getElementById('playerWrap').classList.add('show');
+    document.body.style.overflow='hidden';
+  },2000);
+}
+
+function launchPlayer(id){
+  const vid=document.getElementById('playerVideo');
+  const ifr=document.getElementById('playerFrame');
+  vid.style.display='none';
+  ifr.src=watchUrl(id);
+  ifr.classList.add('visible');
+}
+
+function reqFullscreen(){
+  const body=document.getElementById('playerBody');
+  const req=body.requestFullscreen||body.webkitRequestFullscreen||body.mozRequestFullScreen||body.msRequestFullscreen;
+  if(req)req.call(body);
+}
+
+function closePlayer(){
+  document.getElementById('playerWrap').classList.remove('show');
+  document.getElementById('playerFrame').src='';
+  document.getElementById('playerVideo').src='';
+  document.body.style.overflow='';
+}
+
+/* ── MODAL ── */
+function setLang(lang){
+  currentLang=lang;
+  document.getElementById('btnEs').className='lbtn '+(lang==='es'?'on':'off');
+  document.getElementById('btnEn').className='lbtn '+(lang==='en'?'on':'off');
+  const unavail = lang==='es' ? 'Sinopsis no disponible.' : 'Plot not available.';
+  if(lang==='es') document.getElementById('mPlot').textContent=plotES||plotEN||unavail;
+  else document.getElementById('mPlot').textContent=plotEN||unavail;
+}
+
+function searchByActor(name){
+  closeModal();
+  state.search=name;
+  document.getElementById('searchInput').value=name;
+  if(!searchVisible) toggleSearch();
+  applyFilters();
+  document.getElementById('filterSection').scrollIntoView({behavior:'smooth'});
+}
+
+async function openModal(id){
+  const item=MCU.find(i=>i.imdbID===id);
+  if(!item)return;
+  currentItem=item;
+  plotEN='';plotES='';currentLang=siteLang;
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('btnEs').className='lbtn '+(siteLang==='es'?'on':'off');
+  document.getElementById('btnEn').className='lbtn '+(siteLang==='en'?'on':'off');
+  document.getElementById('mType').textContent=item.type==='movie'?T().modalMovieType:T().modalSeriesType;
+  document.getElementById('mPhase').textContent=`Phase ${item.phase}`;
+  document.getElementById('mTitle').textContent=item.title;
+  document.getElementById('mYear').textContent=item.year;
+  document.getElementById('mRating').textContent=item.rating?`★ ${item.rating} / 10`:'';
+  document.getElementById('mRuntime').textContent='';
+  document.getElementById('mPlot').textContent=T().plotLoading;
+  document.getElementById('mGenres').innerHTML=(item.genre||'').split(',').map(g=>`<span class="gpill">${g.trim()}</span>`).join('');
+
+  const aS=document.getElementById('actorsSec'),aL=document.getElementById('actorsList');
+  if(item.actors){
+    aL.innerHTML=item.actors.split(',').map(a=>a.trim()).filter(Boolean)
+      .map(a=>`<span class="actor-chip" onclick="searchByActor('${a}')">${a}</span>`).join('');
+    aS.style.display='';
+  } else aS.style.display='none';
+
+  document.getElementById('mPoster').innerHTML=
+    `<img class="modal-poster" src="${posterUrl(id)}" alt="${item.title}"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+     <div class="modal-poster-ph" style="display:none;align-items:center;justify-content:center;width:100%;height:100%">🎞️</div>`;
+
+  const [dEN,dES]=await Promise.all([omdbFetch(id,null),omdbFetch(id,'es')]);
+
+  if(dEN){
+    plotEN=(dEN.Plot&&dEN.Plot!=='N/A')?dEN.Plot:'Plot not available.';
+    const rawES=dES?.Plot;
+    plotES=(rawES&&rawES!=='N/A'&&rawES!==plotEN)?rawES:plotEN;
+    if(dEN.Runtime&&dEN.Runtime!=='N/A') document.getElementById('mRuntime').textContent=dEN.Runtime;
+    if(dEN.Genre&&dEN.Genre!=='N/A') document.getElementById('mGenres').innerHTML=dEN.Genre.split(',').map(g=>`<span class="gpill">${g.trim()}</span>`).join('');
+    if(dEN.imdbRating&&dEN.imdbRating!=='N/A') document.getElementById('mRating').textContent=`★ ${dEN.imdbRating} / 10`;
+    if(dEN.Poster&&dEN.Poster!=='N/A'){
+      document.getElementById('mPoster').innerHTML=`<img class="modal-poster" src="${dEN.Poster}" alt="${dEN.Title}" referrerpolicy="no-referrer" onerror="this.src='${posterUrl(id)}'">`;
+    }
+    if(dEN.Actors&&dEN.Actors!=='N/A'){
+      aL.innerHTML=dEN.Actors.split(',').map(a=>a.trim()).filter(Boolean)
+        .map(a=>`<span class="actor-chip" onclick="searchByActor('${a}')">${a}</span>`).join('');
+      aS.style.display='';
+    }
+  } else {
+    plotEN='Plot not available. Get a free API key at omdbapi.com';
+    plotES='Sinopsis no disponible. Obtenés una key gratis en omdbapi.com';
+  }
+  setLang(siteLang);
+}
+
+function maybeClose(e){if(e.target===document.getElementById('modal'))closeModal();}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePlayer();}});
+
+/* ── DEEP LINK ── */
+function checkDeepLink(){
+  const id=new URLSearchParams(window.location.search).get('id');
+  if(id&&MCU.find(i=>i.imdbID===id)) setTimeout(()=>openModal(id),400);
+}
+
+/* ── PARALLAX ── */
+window.addEventListener('scroll',()=>{
+  const scroll=window.pageYOffset;
+  const hero=document.getElementById('heroImg');
+  if(hero&&scroll<window.innerHeight) hero.style.transform=`translateY(${scroll*0.3}px)`;
+},{ passive:true });
+
+/* ── CHARS DRAG SCROLL ── */
+(()=>{
+  const track=document.getElementById('charsTrack');
+  let isDown=false,startX,scrollLeft;
+  track.addEventListener('mousedown',e=>{isDown=true;track.classList.add('active');startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
+  track.addEventListener('mouseleave',()=>{isDown=false;});
+  track.addEventListener('mouseup',()=>{isDown=false;});
+  track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;const walk=(x-startX)*2;track.scrollLeft=scrollLeft-walk;});
+})();
+
+/* ── SCROLL REVEAL ── */
+(()=>{
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('#charsSection,#phasesSection,#joinSection').forEach(s=>{
+    s.style.opacity='0';s.style.transform='translateY(30px)';s.style.transition='opacity .8s ease,transform .8s ease';
+    obs.observe(s);
+  });
+})();
+
+/* ── INIT ── */
+window.onload=()=>{applyFilters();checkDeepLink();};
+</script>
+</body>
+</html>
